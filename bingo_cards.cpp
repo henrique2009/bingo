@@ -23,23 +23,23 @@ int main(int argc, char* argv[]) {
     
     // Para cada cartão
     for (int id = 1; id <= quantidade; id++) {
-        // Vetor 5x5 para cartão (B I N G O)
+        // Vetor 5x5 para cartão
         vector<vector<string>> cartao(5, vector<string>(5, "  "));
         
-        // Colunas: B(1-15), I(16-30), N(31-45), G(46-60), O(61-75)
+        // Colunas: cada uma com 20 números (100/5 = 20)
         for (int col = 0; col < 5; col++) {
-            // Gerar 5 números únicos para a coluna
+            // Gerar 20 números únicos para a coluna
             vector<int> numeros;
-            int inicio = col * 15 + 1;
-            int fim = inicio + 14;
+            int inicio = col * 20 + 1;      // 0:1-20, 1:21-40, 2:41-60, 3:61-80, 4:81-100
+            int fim = inicio + 19;          // 20 números por coluna
             
             for (int i = inicio; i <= fim; i++) {
                 numeros.push_back(i);
             }
             
             // Embaralhar
-            for (int i = 0; i < 15; i++) {
-                int j = rand() % 15;
+            for (int i = 0; i < 20; i++) {
+                int j = rand() % 20;
                 swap(numeros[i], numeros[j]);
             }
             
@@ -49,21 +49,28 @@ int main(int argc, char* argv[]) {
             }
         }
         
-        // Centro vazio (N, linha 2, coluna 2)
+        // Centro vazio (linha 2, coluna 2)
         cartao[2][2] = "**";
         
         // Salvar em arquivo
         string nome = "cartao_" + to_string(id) + ".txt";
         ofstream arquivo(nome);
         
-        arquivo << "CARTÃO " << id << "\n";
-        arquivo << " B   I   N   G   O\n";
-        arquivo << "===================\n";
+        arquivo << "CARTÃO " << id << " (1-100)\n";
+        arquivo << " Col1  Col2  Col3  Col4  Col5\n";
+        arquivo << "===============================\n";
         
         for (int linha = 0; linha < 5; linha++) {
             for (int col = 0; col < 5; col++) {
-                if (cartao[linha][col].length() == 1) arquivo << " ";
-                arquivo << cartao[linha][col] << "  ";
+                // Formatar para ficar alinhado
+                if (cartao[linha][col] == "**") {
+                    arquivo << " **  ";
+                } else {
+                    int num = stoi(cartao[linha][col]);
+                    if (num < 10) arquivo << "  ";
+                    else if (num < 100) arquivo << " ";
+                    arquivo << cartao[linha][col] << "  ";
+                }
             }
             arquivo << "\n";
         }
