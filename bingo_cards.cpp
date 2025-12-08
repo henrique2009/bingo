@@ -57,7 +57,7 @@ int main(int argc, char* argv[]) {
         ofstream arquivo(nome);
         
         arquivo << "CARTÃO " << id << " (1-100)\n";
-        arquivo << " Col1  Col2  Col3  Col4  Col5\n";
+        arquivo << " B   I   N   G   O\n";
         arquivo << "===============================\n";
         
         for (int linha = 0; linha < 5; linha++) {
