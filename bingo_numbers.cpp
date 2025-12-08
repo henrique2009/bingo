@@ -55,10 +55,10 @@ int main() {
             bool achou = false;
             for (int s : sorteados) if (s == i) achou = true;
             
-            if (achou) cout << "\033[31m";
-            else cout << "\033[32m";
+            if (achou) cout << "\033[31m"; // vermelho
+            else cout << "\033[32m"; // verde
             
-            cout << setw(3) << i << "\033[0m ";
+            cout << setw(3) << i << "\033[0m "; // cor padrão
             if (i % 10 == 0) cout << "\n";
         }
         
